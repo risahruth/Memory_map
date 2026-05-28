@@ -1,4 +1,5 @@
 import Navbar from "@/frontend/components/Navbar";
+import Link from "next/link";
 
 export default function HomePage() {
     return (
@@ -23,12 +24,14 @@ export default function HomePage() {
 
                 <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
 
-                    <button className="rounded-full bg-violet-400 px-8 py-4 text-lg font-medium text-white transition hover:scale-105 hover:bg-violet-500">
-                        Start Mapping
-                    </button>
+                    <Link
+                        href="/signup"
+                        className="rounded-full bg-gradient-to-r from-violet-400 via-pink-400 to-amber-400 px-8 py-4 text-lg font-medium text-white shadow-xl transition duration-300 hover:scale-105 hover:shadow-2xl">
+                        Start Mapping 
+                    </Link>
 
                     <button className="rounded-full border border-stone-300 bg-white px-8 py-4 text-lg font-medium transition hover:bg-stone-100">
-                        Explore Memories
+                         Explore Memories
                     </button>
                 </div>
             </section>
