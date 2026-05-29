@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function SignupPage() {
@@ -178,7 +179,7 @@ export default function SignupPage() {
                   <input
                     type="text"
                     name="name"
-                    placeholder="Risah Ruth"
+                    placeholder="John Smith"
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full rounded-2xl border border-stone-200 bg-white/70 px-4 py-3 outline-none transition focus:border-violet-300 focus:ring-4 focus:ring-violet-100"
@@ -193,7 +194,7 @@ export default function SignupPage() {
                   <input
                     type="text"
                     name="username"
-                    placeholder="@risah"
+                    placeholder="@john_smith"
                     value={formData.username}
                     onChange={handleChange}
                     className="w-full rounded-2xl border border-stone-200 bg-white/70 px-4 py-3 outline-none transition focus:border-pink-300 focus:ring-4 focus:ring-pink-100"
@@ -253,9 +254,12 @@ export default function SignupPage() {
               <div className="mt-8 flex items-center justify-center gap-2 text-sm text-stone-500">
                 <span>already collecting memories?</span>
 
-                <button className="font-semibold text-violet-500 transition hover:text-pink-500">
+                <Link
+                  href="/login"
+                  className="font-semibold text-violet-500 transition hover:text-pink-500"
+                >
                   login
-                </button>
+                </Link>
               </div>
 
             </div>

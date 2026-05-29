@@ -30,9 +30,12 @@ export default function HomePage() {
                         Start Mapping 
                     </Link>
 
-                    <button className="rounded-full border border-stone-300 bg-white px-8 py-4 text-lg font-medium transition hover:bg-stone-100">
+                    <Link
+                        href="/login"
+                        className="rounded-full border border-stone-300 bg-white px-8 py-4 text-lg font-medium transition hover:bg-stone-100"
+                    >
                          Explore Memories
-                    </button>
+                    </Link>
                 </div>
             </section>
         </main>

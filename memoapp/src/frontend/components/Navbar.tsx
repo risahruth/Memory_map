@@ -40,9 +40,12 @@ export default function Navbar() {
                         Signup
                     </Link>
 
-                    <button className="rounded-full bg-gradient-to-r from-violet-400 via-pink-400 to-amber-400 px-5 py-2 text-sm font-medium text-white shadow-lg transition hover:scale-105 hover:shadow-xl">
+                    <Link
+                        href="/login"
+                        className="rounded-full bg-gradient-to-r from-violet-400 via-pink-400 to-amber-400 px-5 py-2 text-sm font-medium text-white shadow-lg transition hover:scale-105 hover:shadow-xl"
+                    >
                         Login
-                    </button>
+                    </Link>
 
                 </div>
 
