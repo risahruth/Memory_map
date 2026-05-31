@@ -43,6 +43,8 @@ model Memory {
   latitude    Float?
   longitude   Float?
 
+  views Int @default(0)
+
   locationName String?
 
   visibility  Visibility @default(PRIVATE)
