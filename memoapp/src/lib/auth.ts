@@ -9,3 +9,10 @@ export function generateToken(userId: string) {
         }
     );
 }
+
+export function verifyToken(token: string) {
+    return jwt.verify(
+        token,
+        process.env.JWT_SECRET!
+    );
+}

@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
     const [identifier, setIdentifier] = useState("");
     const [password, setPassword] = useState("");
+    const [showSuccessToast, setShowSuccessToast] = useState(false);
+    const router = useRouter();
 
     async function handleLogin(e: React.FormEvent) {
         e.preventDefault();
@@ -29,7 +32,11 @@ export default function LoginPage() {
                 return;
             }
 
-            alert("Welcome back 🌸");
+            setShowSuccessToast(true);
+
+            window.setTimeout(() => {
+                router.push("/dashboard");
+            }, 900);
 
         } catch (error) {
             console.log(error);
@@ -39,6 +46,12 @@ export default function LoginPage() {
 
     return (
         <main className="flex min-h-screen items-center justify-center bg-[#fdf6f0] px-6 py-12">
+            {showSuccessToast && (
+                <div className="fixed right-6 top-6 z-50 rounded-2xl border border-emerald-200 bg-white px-5 py-3 text-sm font-medium text-emerald-700 shadow-lg">
+                    {"\u2713"} Logged in successfully
+                </div>
+            )}
+
             <div className="w-full max-w-md overflow-hidden rounded-[32px] border border-stone-200 bg-white/70 shadow-xl backdrop-blur-md">
 
                 <div className="border-b border-stone-200 bg-gradient-to-r from-rose-100 via-violet-100 to-orange-100 px-8 py-10 text-center">
