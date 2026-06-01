@@ -12,7 +12,7 @@ datasource db {
 
 enum Visibility {
   PRIVATE
-  FOLLOWERS
+  FRIENDS
   PUBLIC
 }
 

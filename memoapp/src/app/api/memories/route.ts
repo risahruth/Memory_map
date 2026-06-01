@@ -15,6 +15,7 @@ export async function POST(
                 description,
                 locationName,
                 visibility,
+                imageUrl,
             } = body;
 
         console.log(body);
@@ -63,6 +64,7 @@ export async function POST(
                     description,
                     locationName,
                     visibility,
+                    imageUrl,
                     userId: decoded.userId,
                 },
             });

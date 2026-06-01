@@ -9,6 +9,8 @@ export default function MemoryForm() {
     const [locationName, setLocationName] = useState("");
     const [visibility, setVisibility] = useState("PRIVATE");
     const [toastMessage, setToastMessage] = useState("");
+    const [image, setImage] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState("");
 
     async function handleSubmit(
         e: React.FormEvent
@@ -16,7 +18,36 @@ export default function MemoryForm() {
         e.preventDefault();
 
         try {
+            let imageUrl = "";
+            if (image) {
 
+                const formData = new FormData();
+
+                formData.append(
+                    "file",
+                    image
+                );
+
+                formData.append(
+                    "upload_preset",
+                    process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+                );
+
+                const cloudinaryResponse =
+                    await fetch(
+                        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                        {
+                            method: "POST",
+                            body: formData,
+                        }
+                    );
+
+                const cloudinaryData =
+                    await cloudinaryResponse.json();
+
+                imageUrl =
+                    cloudinaryData.secure_url;
+            }
             const response = await fetch(
                 "/api/memories",
                 {
@@ -30,6 +61,7 @@ export default function MemoryForm() {
                         description,
                         locationName,
                         visibility,
+                        imageUrl,
                     }),
                 }
             );
@@ -38,7 +70,6 @@ export default function MemoryForm() {
                 await response.json();
 
             setToastMessage(data.message);
-
             window.setTimeout(() => {
                 setToastMessage("");
             }, 2200);
@@ -46,6 +77,8 @@ export default function MemoryForm() {
             setDescription("");
             setLocationName("");
             setVisibility("PRIVATE");
+            setImage(null);
+            setPreviewUrl("");
 
         } catch (error) {
 
@@ -57,6 +90,7 @@ export default function MemoryForm() {
         }
     }
 
+
     return (
         <div>
             {toastMessage && (
@@ -64,7 +98,6 @@ export default function MemoryForm() {
                     {"\u2713"} {toastMessage}
                 </div>
             )}
-
             <div className="mb-6 inline-block rounded-full bg-pink-100 px-4 py-2 text-sm text-pink-500">
                  create a new memory
             </div>
@@ -139,6 +172,44 @@ export default function MemoryForm() {
                         focus:border-violet-300
                     "
             />
+            <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+
+                    const file = e.target.files?.[0];
+
+                    if (!file) return;
+
+                    setImage(file);
+
+                    setPreviewUrl(
+                        URL.createObjectURL(file)
+                    );
+                }}
+                className="
+                    w-full
+                    rounded-2xl
+                    border border-stone-200
+                    bg-rose-50
+                    px-4
+                    py-3
+                "
+            />
+            {
+                previewUrl && (
+                    <img
+                        src={previewUrl}
+                        alt="preview"
+                        className="
+                            h-64
+                            w-full
+                            rounded-2xl
+                            object-cover
+                        "
+                    />
+                )
+            }
 
             <select
                 value={visibility}
