@@ -12,6 +12,13 @@ export default function Navbar({
 }: NavbarProps) {
 
     const [isOpen, setIsOpen] = useState(false);
+    const handleLogout = async () => {
+        await fetch("/api/auth/logout", {
+            method: "POST",
+        });
+
+        window.location.href = "/";
+    };
 
     return (
         <nav className="sticky top-0 z-50 border-b border-stone-200 bg-[#7F675B]/80 backdrop-blur-md">
@@ -180,6 +187,7 @@ export default function Navbar({
                                 <hr />
 
                                 <button
+                                    onClick={handleLogout}
                                     className="
                                         block
                                         w-full
