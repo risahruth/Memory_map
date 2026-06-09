@@ -63,12 +63,14 @@ export async function POST(
 
         const body = await req.json();
         const {
-                title,
-                description,
-                locationName,
-                visibility,
-                imageUrl,
-            } = body;
+            title,
+            description,
+            locationName,
+            visibility,
+            imageUrl,
+            latitude,
+            longitude,
+        } = body;
 
         console.log(body);
         if (
@@ -117,6 +119,8 @@ export async function POST(
                     locationName,
                     visibility,
                     imageUrl,
+                    latitude,
+                    longitude,
                     userId: decoded.userId,
                 },
             });

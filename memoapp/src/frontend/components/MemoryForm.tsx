@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import LocationPickerWrapper
+from "@/frontend/components/LocationPickerWrapper";
 
 export default function MemoryForm() {
 
@@ -11,6 +13,13 @@ export default function MemoryForm() {
     const [toastMessage, setToastMessage] = useState("");
     const [image, setImage] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState("");
+    const [latitude, setLatitude] =
+    useState<number | null>(null);
+
+    const [longitude, setLongitude] =
+    useState<number | null>(null);
+    const [showMap, setShowMap] =
+    useState(false);
 
     async function handleSubmit(
         e: React.FormEvent
@@ -62,6 +71,8 @@ export default function MemoryForm() {
                         locationName,
                         visibility,
                         imageUrl,
+                        latitude,
+                        longitude,
                     }),
                 }
             );
@@ -79,6 +90,8 @@ export default function MemoryForm() {
             setVisibility("PRIVATE");
             setImage(null);
             setPreviewUrl("");
+            setLatitude(null);
+            setLongitude(null);
 
         } catch (error) {
 
@@ -172,6 +185,70 @@ export default function MemoryForm() {
                         focus:border-violet-300
                     "
             />
+            <button
+                type="button"
+                onClick={() => setShowMap(true)}
+                className="
+                    rounded-xl
+                    bg-violet-200
+                    px-4
+                    py-2
+                "
+            >
+                 Pick Location On Map
+            </button>
+            <div className="mt-2 text-sm">
+                {latitude && longitude ? (
+                    <p>
+                        📍 {latitude.toFixed(5)},
+                        {" "}
+                        {longitude.toFixed(5)}
+                    </p>
+                ) : (
+                    <p>
+                        No location selected
+                    </p>
+                )}
+            </div>
+            {showMap && (
+                <div
+                    className="
+                        fixed inset-0
+                        z-50
+                        flex items-center justify-center
+                        bg-black/50
+                    "
+                >
+                    <div
+                        className="
+                            w-[90%]
+                            max-w-4xl
+                            rounded-2xl
+                            bg-white
+                            p-4
+                        "
+                    >
+                        <button
+                            onClick={() =>
+                                setShowMap(false)
+                            } 
+                        >
+                            Close
+                        </button>
+
+                        <LocationPickerWrapper
+                            onLocationSelect={(
+                                lat,
+                                lng
+                            ) => {
+                                setLatitude(lat);
+                                setLongitude(lng);
+                                setShowMap(false);
+                            }}
+                        />
+                    </div>
+                </div>
+            )}
             <input
                 type="file"
                 accept="image/*"
