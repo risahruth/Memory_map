@@ -50,10 +50,10 @@ export default function Navbar({
                         </Link>
 
                         <Link
-                            href="/explore"
+                            href="/map"
                             className="transition hover:text-sky-500"
                         >
-                            Explore
+                            Map
                         </Link>
 
                         <Link
